@@ -8,26 +8,13 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Maundy - v4.6.0
-  * Template URL: https://bootstrapmade.com/maundy-free-coming-soon-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -52,7 +39,8 @@
       </div>
 
     </div>
-  </header><!-- End #header -->
+  </header>
+  <!-- End #header -->
 
   <main id="main">
 
@@ -135,7 +123,7 @@
       }
 
           /** 
-          * Looping Pertama
+          * Looping Kedua
           * untuk mencari Dependency 
           * */
           for ($i = 0; $i < count($data); $i++){
@@ -153,17 +141,15 @@
                           $hasil[$urutan]["Dependency"] = 0;
                       }
 
-                  }
-                  
+                  }  
               }
-              
           }
+          
       ?>
       <div class="row mt-2">
-
         <div class="card my-5 mx-5 py-5 px-5 icon_box">
           <table class = "table table-bordered">
-              <tr>
+                    <tr>
                       <td>No</td>
                       <td>State</td>
                       <td>Name</td>
@@ -180,27 +166,30 @@
                     </tr>
                     @endforeach
                   </table>
-                </tbody>
-              </div>
-              @endif
+              {{-- </div> --}}
+            </div>
+          </div>
+        </section>
+
+          <section id="about" class="about">
+            <div class="section-title">
+              <h2 class="center">Activity Dependency Graph</h2>
+              <div class="center">
+              {{-- <div class="card my-7 mx-7 py-7 px-7 icon_box"> --}}
+                  @foreach ($hasil as $value) 
+                  {{ ($value["ID"]. "->" .$value["Dependency"]) }}<br>
+                  @endforeach
+                  @endif
+              {{-- </div> --}}
             </div>
             </div>
-
-    </section><!-- End About Us Section -->
-
-
-
+          </section> 
+        <!-- End About Us Section -->
+            
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
-      {{-- <div class="copyright">
-        &copy; Copyright <strong><span>Maundy</span></strong>. All Rights Reserved
-      </div> --}}
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/maundy-free-coming-soon-bootstrap-theme/ -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>

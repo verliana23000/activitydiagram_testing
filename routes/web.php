@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,5 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('/index', 'index');
-Route::resource('upload', App\Http\Controllers\UploadController::class);
+// Route::view('/index', 'index');
+// Route::resource('upload', App\Http\Controllers\UploadController::class);
+Route::get('/', [UploadController::class, 'index']);
