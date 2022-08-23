@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Route::view('/index', 'index');
-// Route::resource('upload', App\Http\Controllers\UploadController::class);
+Route::resource('upload', App\Http\Controllers\UploadController::class);
 Route::get('/', [UploadController::class, 'index']);
