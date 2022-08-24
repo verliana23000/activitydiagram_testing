@@ -23,6 +23,7 @@
     $tujuan=array();
     $cabang=array();
     $buntu=array();
+    $start=0;
 
 @endphp
   <!-- ======= Header ======= -->
@@ -180,8 +181,13 @@
                               @php
                                   $awal[]=$value['Dependency'];
                                   $tujuan[]=$value['ID'];
+                                  if ($value['Dependency']==0) {
+                                    $start=$value['ID'];
+                                  }
                               @endphp
-                          @endforeach 
+                          @endforeach
+
+
 
                           {{-- Mencari nilai cabang --}}
                           @foreach ($hasil as $key1 => $value1)
@@ -215,22 +221,31 @@
                               @endphp
                             @endif
                           @endforeach
+                        </div>
+                        <br><br>
+                            <span><h2 style="color:black ">Jalur Uji</h2></span>
+                            <div style="color: black">
+                              <div id="hasil"></div>
+                            </div>
+
+
+
         @endif
 
                           
-                          <div id="hasil-output"></div>
-                          <div id="hasil"></div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
               </section>
               <script>
                 var awal ={!!json_encode($awal)!!};
                 var tujuan ={!!json_encode($tujuan)!!};
                 var cabang ={!!json_encode($cabang)!!};
                 var buntu ={!!json_encode($buntu)!!};
+                var start ={!!json_encode($start)!!};
+                
                 var array=[];
                 var jalur_uji=[];
 
@@ -241,13 +256,6 @@
                   buntu[i]=Number(buntu[i]);
                  }     
 
-                // Javascript program to print DFS
-                // traversal from a given
-                // graph
-                
-                // This class represents a
-                // directed graph using adjacency
-                // list representation
                 class Graph
                 {
                   
@@ -260,29 +268,19 @@
                       this.adj[i] = [];
                   }
                   
-                  // Function to add an edge into the graph
                   addEdge(v, w)
                   {
                     
-                    // Add w to v's list.
                     this.adj[v].push(w);
                   }
                   
-                  // A function used by DFS
                   DFSUtil(v, visited)
                   {
                     
-                    // Mark the current node as visited and print it
                     visited[v] = true;
                     
-                    // document.getElementById("hasil-output").innerHTML +=v + ", ";
                     array[array.length]=v;
 
-                    // document.write(v + " ");
-                    // console.log(v + " ");
-                
-                    // Recur for all the vertices adjacent to this
-                    // vertex
                     for(let i of this.adj[v].values())
                     {
                       let n = i
@@ -291,35 +289,24 @@
                     }
                   }
                   
-                  // The function to do DFS traversal.
-                  // It uses recursive
-                  // DFSUtil()
                   DFS(v)
                   {
                     
-                    // Mark all the vertices as
-                    // not visited(set as
-                    // false by default in java)
                     let visited = new Array(this.V);
                     for(let i = 0; i < this.V; i++)
                       visited[i] = false;
                 
-                    // Call the recursive helper
-                    // function to print DFS
-                    // traversal
                     this.DFSUtil(v, visited);
                   }
                 }
                 
-                // Driver Code
                 g = new Graph(100);
                 for (let i = 0; i < awal.length; i++) {
                   g.addEdge(Number(awal[i]), Number(tujuan[i]));
                  }          
-                document.getElementById("hasil-output").innerHTML +=  "Following is Depth First Traversal " +
-                      "(starting from vertex 2)<br>";
                 
-                  g.DFS(2);
+                  g.DFS(Number(start));
+                  
                 var jml_jalur_uji=cabang.length+1;
                 for (var i = 0; i < (jml_jalur_uji); i++) {
                   console.log(cabang);
@@ -354,9 +341,6 @@
                   }
                   document.getElementById("hasil").innerHTML +="<br>";
                 }
-
-                // This code is contributed by avanitrachhadiya2155
-              
                 </script>
                 
 </body>
