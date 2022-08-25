@@ -21,6 +21,7 @@
 @php
     $awal=array();
     $tujuan=array();
+    $nama=array();
     $cabang=array();
     $buntu=array();
     $start=0;
@@ -147,7 +148,7 @@
         ?>
         <div class="card py-5 px-5 icon_box">
           <div class="row">
-            <div class="col-7">
+            <div class="col-10" align="center">
                 <span><h2 style="color:black">Activity Dependency Table</h2></span>
                   <table class = "table table-bordered">
                           <tr>
@@ -168,7 +169,7 @@
                           @endforeach
                         </table>
                       </div>
-                      <div class="col-5">
+                      <div class="col-10" align="center">
                         <span><h2 style="color:black ">Activity Dependency Graph</h2></span>
                         <div style="color: black">
                           @foreach ($hasil as $key => $value)
@@ -178,9 +179,11 @@
                                 $id = trim($value['ID'], " \n");
                               ?>
                               {{ ($value['Dependency']. "->" .$value['ID']) }}<br>
+                              
                               @php
                                   $awal[]=$value['Dependency'];
                                   $tujuan[]=$value['ID'];
+                                  $nama[]=$value['Activity Name'];
                                   if ($value['Dependency']==0) {
                                     $start=$value['ID'];
                                   }
@@ -226,14 +229,13 @@
                             <span><h2 style="color:black ">Jalur Uji</h2></span>
                             <div style="color: black">
                               <div id="hasil"></div>
+                              <br><br>
+                              <span><h2 style="color:black ">Keterangan Jalur Uji</h2></span>
+                              <div style="color: black">
+  
+                              <div id="hasil-nama"></div>
                             </div>
-
-
-
         @endif
-
-                          
-        
       </div>
     </div>
   </div>
@@ -242,6 +244,7 @@
               <script>
                 var awal ={!!json_encode($awal)!!};
                 var tujuan ={!!json_encode($tujuan)!!};
+                var nama ={!!json_encode($nama)!!};
                 var cabang ={!!json_encode($cabang)!!};
                 var buntu ={!!json_encode($buntu)!!};
                 var start ={!!json_encode($start)!!};
@@ -288,10 +291,8 @@
                         this.DFSUtil(n, visited);
                     }
                   }
-                  
                   DFS(v)
                   {
-                    
                     let visited = new Array(this.V);
                     for(let i = 0; i < this.V; i++)
                       visited[i] = false;
@@ -312,7 +313,11 @@
                   console.log(cabang);
                   for (var j = 0; j < (array.length); j++) {
                     document.getElementById("hasil").innerHTML +=array[j] + ", ";
-
+                    for (let k = 0; k < nama.length; k++) {
+                      if(array[j]==tujuan[k]){
+                        document.getElementById("hasil-nama").innerHTML +=nama[k] + ", ";
+                      }
+                    }
                     if(cabang.includes(array[j]))
                     {
                       var posisi=j+1;
@@ -334,12 +339,12 @@
                         cabang.splice(k,1);
                         }
                       }
-                      
                     }else{
                       console.log("bukan buntu"+array[j]);
                     }
                   }
                   document.getElementById("hasil").innerHTML +="<br>";
+                  document.getElementById("hasil-nama").innerHTML +="<br>";
                 }
                 </script>
                 
